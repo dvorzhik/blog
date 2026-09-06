@@ -8,7 +8,7 @@
   * Пагинация через параметр ?before=<id> для сбора ПОЛНОГО архива.
   * Реальные даты публикаций (ISO + человекочитаемая русская дата).
   * Сортировка постов по ID по убыванию (новые сверху).
-  * Скрытие постов в браузере через localStorage (ключ hiddenPosts).
+  * Исключение служебных постов Telegram (смена аватарки, названия и т.п.).
   * Идемпотентность: при неизменном контенте файл не перезаписывается
     (важно для GitHub Actions, чтобы не создавать лишних коммитов).
 """
@@ -215,6 +215,35 @@ def extract_photo_url(block):
     return None
 
 
+def is_service_post(text):
+    """
+    Определяет, является ли пост служебным (смена аватарки, названия канала
+    и т.п.), чтобы исключить его из архива. Принимает очищенный текст поста.
+    """
+    if not text:
+        return False
+    # Маркеры служебных изменений, которые Telegram добавляет в такие посты
+    markers = [
+        "channel created",
+        "channel photo updated",
+        "channel name changed",
+        "channel info changed",
+        "channel video updated",
+        "channel removed photo",
+        "channel pinned message",
+        "channel history was cleared",
+        "канал создан",
+        "фото канала обновлено",
+        "название канала изменено",
+        "информация о канале изменена",
+    ]
+    low = text.lower().strip()
+    for marker in markers:
+        if low == marker or low.startswith(marker + " "):
+            return True
+    return False
+
+
 def parse_posts(page_html):
     """
     Разбирает HTML страницы на список словарей постов.
@@ -234,6 +263,10 @@ def parse_posts(page_html):
 
         # Пропускаем посты без текста и без медиа (служебные)
         if not text_html and not photo_url:
+            continue
+
+        # Пропускаем служебные посты Telegram (смена аватарки, названия и т.п.)
+        if is_service_post(search_text):
             continue
 
         posts.append({
@@ -408,7 +441,6 @@ def build_post_card(post):
         <span class="post-date"{datetime_attr}>{date_label}</span>
         <div class="post-meta-right">
             <a href="{link}" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost({post_id})" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     {photo_html}
@@ -433,54 +465,49 @@ def generate_html(posts):
     <title>Блог в Телеграм — Архив публикаций</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {{
-            --bg-color: #f7f5f0;
-            --card-bg: #ffffff;
-            --text-primary: #2c2c2c;
-            --text-secondary: #666666;
-            --accent: #2b5d8c;
-            --accent-light: #eaf2f8;
-            --border-color: #e3ded5;
-            --shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-            --radius: 12px;
+            --bg: #ffffff;
+            --card-bg: #f8fafc;
+            --card-border: #e2e8f0;
+            --accent: #ca8a04;
+            --accent-hover: #a16207;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --link: #0284c7;
         }}
         * {{ box-sizing: border-box; margin: 0; padding: 0; }}
-        body {{ font-family: 'Inter', sans-serif; background-color: var(--bg-color); color: var(--text-primary); line-height: 1.6; }}
-        .site-header {{ text-align: center; padding: 48px 20px 24px; }}
-        .site-header h1 {{ font-family: 'Merriweather', serif; font-size: 2.4rem; font-weight: 700; letter-spacing: 0.04em; color: var(--text-primary); }}
-        .site-header p {{ font-size: 1.05rem; color: var(--text-secondary); margin-top: 8px; }}
+        body {{ font-family: 'Inter', system-ui, -apple-system, sans-serif; background-color: var(--bg); color: var(--text-main); line-height: 1.6; }}
+        .top-title-sec {{ text-align: center; padding: 48px 20px 24px; }}
+        .top-title-sec h1 {{ font-size: 2.2rem; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text-main); }}
+        .top-title-sec p {{ font-size: 1.05rem; color: var(--text-muted); margin-top: 8px; }}
         .container {{ max-width: 760px; margin: 0 auto 60px; padding: 0 20px; position: relative; }}
-        .controls {{ background: var(--card-bg); padding: 16px 20px; border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 30px; border: 1px solid var(--border-color); }}
+        .controls {{ background: var(--card-bg); padding: 16px 20px; border-radius: 16px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06); margin-bottom: 30px; border: 1px solid var(--card-border); }}
         .controls-top {{ display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }}
-        .post-count {{ font-size: 0.9rem; color: var(--text-secondary); font-weight: 500; }}
+        .post-count {{ font-size: 0.9rem; color: var(--text-muted); font-weight: 500; }}
         .post-count b {{ color: var(--accent); }}
-        .show-hidden-btn {{ background: var(--accent-light); color: var(--accent); border: 1px solid var(--accent); padding: 6px 14px; border-radius: 20px; font-family: inherit; font-size: 0.85rem; font-weight: 500; cursor: pointer; transition: all 0.2s; }}
-        .show-hidden-btn:hover {{ background: var(--accent); color: #fff; }}
-        .search-input {{ width: 100%; padding: 10px 16px; border: 1px solid var(--border-color); border-radius: 8px; font-family: inherit; font-size: 0.95rem; outline: none; }}
+        .search-input {{ width: 100%; padding: 10px 16px; border: 1px solid var(--card-border); border-radius: 8px; font-family: inherit; font-size: 0.95rem; outline: none; background: var(--bg); }}
         .search-input:focus {{ border-color: var(--accent); }}
         .posts-list {{ display: flex; flex-direction: column; gap: 24px; }}
-        .post-card {{ background: var(--card-bg); border-radius: var(--radius); padding: 28px 32px; box-shadow: var(--shadow); border: 1px solid var(--border-color); overflow: hidden; }}
-        .post-meta {{ display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; font-size: 0.85rem; color: var(--text-secondary); border-bottom: 1px solid var(--border-color); padding-bottom: 12px; gap: 10px; }}
+        .post-card {{ background: var(--card-bg); border-radius: 16px; padding: 28px 32px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06); border: 1px solid var(--card-border); overflow: hidden; }}
+        .post-meta {{ display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; font-size: 0.85rem; color: var(--text-muted); border-bottom: 1px solid var(--card-border); padding-bottom: 12px; gap: 10px; }}
         .post-meta-right {{ display: flex; align-items: center; gap: 12px; }}
-        .post-date {{ font-weight: 500; background: var(--accent-light); color: var(--accent); padding: 4px 10px; border-radius: 6px; white-space: nowrap; }}
-        .post-link {{ color: var(--accent); text-decoration: none; font-weight: 500; }}
+        .post-date {{ font-weight: 500; background: rgba(202, 138, 4, 0.12); color: var(--accent); padding: 4px 10px; border-radius: 6px; white-space: nowrap; }}
+        .post-link {{ color: var(--link); text-decoration: none; font-weight: 500; }}
         .post-link:hover {{ text-decoration: underline; }}
-        .hide-btn {{ background: transparent; color: var(--text-secondary); border: 1px solid var(--border-color); padding: 4px 10px; border-radius: 6px; font-family: inherit; font-size: 0.8rem; cursor: pointer; transition: all 0.2s; }}
-        .hide-btn:hover {{ background: #f0f0f0; color: #c0392b; border-color: #c0392b; }}
-        .post-photo {{ margin: -28px -32px 20px -32px; background: #f0f0f0; max-height: 480px; display: flex; align-items: center; justify-content: center; overflow: hidden; }}
+        .post-photo {{ margin: -28px -32px 20px -32px; background: #f1f5f9; max-height: 480px; display: flex; align-items: center; justify-content: center; overflow: hidden; }}
         .post-photo img {{ width: 100%; height: auto; object-fit: cover; display: block; }}
-        .post-content {{ font-family: 'Merriweather', serif; font-size: 1.05rem; line-height: 1.75; color: #2b2b2b; word-wrap: break-word; }}
+        .post-content {{ font-size: 1.05rem; line-height: 1.75; color: var(--text-main); word-wrap: break-word; }}
         .post-content p {{ margin-bottom: 1em; }}
         .post-content p:last-child {{ margin-bottom: 0; }}
-        .post-content a {{ color: var(--accent); }}
-        .post-content blockquote {{ border-left: 3px solid var(--accent); margin: 1em 0; padding: 0.5em 1em; background: var(--accent-light); border-radius: 0 6px 6px 0; }}
+        .post-content a {{ color: var(--link); }}
+        .post-content blockquote {{ border-left: 3px solid var(--accent); margin: 1em 0; padding: 0.5em 1em; background: rgba(202, 138, 4, 0.08); border-radius: 0 6px 6px 0; }}
         .read-more-btn {{ display: block; margin: 16px 0 0; background: transparent; color: var(--accent); border: 1px solid var(--accent); padding: 8px 18px; border-radius: 20px; font-family: inherit; font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: all 0.2s; }}
-        .read-more-btn:hover {{ background: var(--accent); color: #fff; }}
+        .read-more-btn:hover {{ background: var(--accent-hover); color: #fff; }}
         .post-more {{ margin-top: 1em; }}
-        footer {{ text-align: center; padding: 40px 20px; color: var(--text-secondary); font-size: 0.85rem; border-top: 1px solid var(--border-color); margin-top: 60px; }}
-        .no-results {{ text-align: center; padding: 40px 20px; color: var(--text-secondary); font-size: 1.1rem; display: none; }}
+        footer {{ text-align: center; padding: 40px 20px; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid var(--card-border); margin-top: 60px; }}
+        .no-results {{ text-align: center; padding: 40px 20px; color: var(--text-muted); font-size: 1.1rem; display: none; }}
         @media (max-width: 600px) {{
             .post-card {{ padding: 20px; }}
             .post-photo {{ margin: -20px -20px 16px -20px; }}
@@ -489,15 +516,14 @@ def generate_html(posts):
     </style>
 </head>
 <body>
-    <header class="site-header">
+    <div class="top-title-sec">
         <h1>DVORZHIK — БЛОГ</h1>
         <p>Архив публикаций из канала @dvorzhiki</p>
-    </header>
+    </div>
     <main class="container">
         <div class="controls">
             <div class="controls-top">
                 <span class="post-count">Всего публикаций: <b id="postCount">{total}</b></span>
-                <button class="show-hidden-btn" id="showHiddenBtn" onclick="showHiddenPosts()">Показать скрытые</button>
             </div>
             <input type="text" id="searchInput" class="search-input" placeholder="Поиск по публикациям..." onkeyup="filterPosts()">
         </div>
@@ -510,65 +536,6 @@ def generate_html(posts):
         <p>&copy; 2026 Александр Дворжицкий. Опубликовано на GitHub Pages.</p>
     </footer>
     <script>
-        // Ключ в localStorage для хранения скрытых постов
-        const HIDDEN_KEY = 'hiddenPosts';
-
-        // Загружаем список скрытых постов из localStorage
-        function getHiddenPosts() {{
-            try {{
-                const raw = localStorage.getItem(HIDDEN_KEY);
-                return raw ? JSON.parse(raw) : [];
-            }} catch (e) {{
-                return [];
-            }}
-        }}
-
-        // Сохраняем список скрытых постов
-        function saveHiddenPosts(hidden) {{
-            try {{
-                localStorage.setItem(HIDDEN_KEY, JSON.stringify(hidden));
-            }} catch (e) {{
-                // localStorage может быть недоступен — игнорируем
-            }}
-        }}
-
-        // Прячем карточку поста
-        function hidePost(id) {{
-            const card = document.querySelector('.post-card[data-post-id="' + id + '"]');
-            if (card) {{
-                card.style.display = 'none';
-            }}
-            const hidden = getHiddenPosts();
-            if (hidden.indexOf(id) === -1) {{
-                hidden.push(id);
-                saveHiddenPosts(hidden);
-            }}
-            updateCount();
-        }}
-
-        // Показываем все скрытые посты (очищаем список)
-        function showHiddenPosts() {{
-            saveHiddenPosts([]);
-            const cards = document.querySelectorAll('.post-card');
-            for (let i = 0; i < cards.length; i++) {{
-                cards[i].style.display = '';
-            }}
-            filterPosts();
-            updateCount();
-        }}
-
-        // При загрузке страницы автоматически прячем скрытые посты
-        function applyHidden() {{
-            const hidden = getHiddenPosts();
-            if (hidden.length === 0) return;
-            for (let i = 0; i < hidden.length; i++) {{
-                const card = document.querySelector('.post-card[data-post-id="' + hidden[i] + '"]');
-                if (card) {{
-                    card.style.display = 'none';
-                }}
-            }}
-        }}
-
         // Разворачивание/сворачивание полного текста поста
         function toggleReadMore(id) {{
             const more = document.getElementById('postMore-' + id);
@@ -601,18 +568,6 @@ def generate_html(posts):
             }}
             document.getElementById('noResults').style.display = visible === 0 ? 'block' : 'none';
         }}
-
-        // Обновляем счётчик видимых постов
-        function updateCount() {{
-            const hidden = getHiddenPosts();
-            const total = document.querySelectorAll('.post-card').length;
-            const visible = total - hidden.length;
-            document.getElementById('postCount').textContent = visible + ' / ' + total;
-        }}
-
-        // Инициализация при загрузке
-        applyHidden();
-        updateCount();
     </script>
 </body>
 </html>

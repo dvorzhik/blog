@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -7,54 +7,49 @@
     <link rel="icon" type="image/png" href="images/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #f7f5f0;
-            --card-bg: #ffffff;
-            --text-primary: #2c2c2c;
-            --text-secondary: #666666;
-            --accent: #2b5d8c;
-            --accent-light: #eaf2f8;
-            --border-color: #e3ded5;
-            --shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-            --radius: 12px;
+            --bg: #ffffff;
+            --card-bg: #f8fafc;
+            --card-border: #e2e8f0;
+            --accent: #ca8a04;
+            --accent-hover: #a16207;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --link: #0284c7;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Inter', sans-serif; background-color: var(--bg-color); color: var(--text-primary); line-height: 1.6; }
-        .site-header { text-align: center; padding: 48px 20px 24px; }
-        .site-header h1 { font-family: 'Merriweather', serif; font-size: 2.4rem; font-weight: 700; letter-spacing: 0.04em; color: var(--text-primary); }
-        .site-header p { font-size: 1.05rem; color: var(--text-secondary); margin-top: 8px; }
+        body { font-family: 'Inter', system-ui, -apple-system, sans-serif; background-color: var(--bg); color: var(--text-main); line-height: 1.6; }
+        .top-title-sec { text-align: center; padding: 48px 20px 24px; }
+        .top-title-sec h1 { font-size: 2.2rem; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text-main); }
+        .top-title-sec p { font-size: 1.05rem; color: var(--text-muted); margin-top: 8px; }
         .container { max-width: 760px; margin: 0 auto 60px; padding: 0 20px; position: relative; }
-        .controls { background: var(--card-bg); padding: 16px 20px; border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 30px; border: 1px solid var(--border-color); }
+        .controls { background: var(--card-bg); padding: 16px 20px; border-radius: 16px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06); margin-bottom: 30px; border: 1px solid var(--card-border); }
         .controls-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
-        .post-count { font-size: 0.9rem; color: var(--text-secondary); font-weight: 500; }
+        .post-count { font-size: 0.9rem; color: var(--text-muted); font-weight: 500; }
         .post-count b { color: var(--accent); }
-        .show-hidden-btn { background: var(--accent-light); color: var(--accent); border: 1px solid var(--accent); padding: 6px 14px; border-radius: 20px; font-family: inherit; font-size: 0.85rem; font-weight: 500; cursor: pointer; transition: all 0.2s; }
-        .show-hidden-btn:hover { background: var(--accent); color: #fff; }
-        .search-input { width: 100%; padding: 10px 16px; border: 1px solid var(--border-color); border-radius: 8px; font-family: inherit; font-size: 0.95rem; outline: none; }
+        .search-input { width: 100%; padding: 10px 16px; border: 1px solid var(--card-border); border-radius: 8px; font-family: inherit; font-size: 0.95rem; outline: none; background: var(--bg); }
         .search-input:focus { border-color: var(--accent); }
         .posts-list { display: flex; flex-direction: column; gap: 24px; }
-        .post-card { background: var(--card-bg); border-radius: var(--radius); padding: 28px 32px; box-shadow: var(--shadow); border: 1px solid var(--border-color); overflow: hidden; }
-        .post-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; font-size: 0.85rem; color: var(--text-secondary); border-bottom: 1px solid var(--border-color); padding-bottom: 12px; gap: 10px; }
+        .post-card { background: var(--card-bg); border-radius: 16px; padding: 28px 32px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06); border: 1px solid var(--card-border); overflow: hidden; }
+        .post-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; font-size: 0.85rem; color: var(--text-muted); border-bottom: 1px solid var(--card-border); padding-bottom: 12px; gap: 10px; }
         .post-meta-right { display: flex; align-items: center; gap: 12px; }
-        .post-date { font-weight: 500; background: var(--accent-light); color: var(--accent); padding: 4px 10px; border-radius: 6px; white-space: nowrap; }
-        .post-link { color: var(--accent); text-decoration: none; font-weight: 500; }
+        .post-date { font-weight: 500; background: rgba(202, 138, 4, 0.12); color: var(--accent); padding: 4px 10px; border-radius: 6px; white-space: nowrap; }
+        .post-link { color: var(--link); text-decoration: none; font-weight: 500; }
         .post-link:hover { text-decoration: underline; }
-        .hide-btn { background: transparent; color: var(--text-secondary); border: 1px solid var(--border-color); padding: 4px 10px; border-radius: 6px; font-family: inherit; font-size: 0.8rem; cursor: pointer; transition: all 0.2s; }
-        .hide-btn:hover { background: #f0f0f0; color: #c0392b; border-color: #c0392b; }
-        .post-photo { margin: -28px -32px 20px -32px; background: #f0f0f0; max-height: 480px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .post-photo { margin: -28px -32px 20px -32px; background: #f1f5f9; max-height: 480px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .post-photo img { width: 100%; height: auto; object-fit: cover; display: block; }
-        .post-content { font-family: 'Merriweather', serif; font-size: 1.05rem; line-height: 1.75; color: #2b2b2b; word-wrap: break-word; }
+        .post-content { font-size: 1.05rem; line-height: 1.75; color: var(--text-main); word-wrap: break-word; }
         .post-content p { margin-bottom: 1em; }
         .post-content p:last-child { margin-bottom: 0; }
-        .post-content a { color: var(--accent); }
-        .post-content blockquote { border-left: 3px solid var(--accent); margin: 1em 0; padding: 0.5em 1em; background: var(--accent-light); border-radius: 0 6px 6px 0; }
+        .post-content a { color: var(--link); }
+        .post-content blockquote { border-left: 3px solid var(--accent); margin: 1em 0; padding: 0.5em 1em; background: rgba(202, 138, 4, 0.08); border-radius: 0 6px 6px 0; }
         .read-more-btn { display: block; margin: 16px 0 0; background: transparent; color: var(--accent); border: 1px solid var(--accent); padding: 8px 18px; border-radius: 20px; font-family: inherit; font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: all 0.2s; }
-        .read-more-btn:hover { background: var(--accent); color: #fff; }
+        .read-more-btn:hover { background: var(--accent-hover); color: #fff; }
         .post-more { margin-top: 1em; }
-        footer { text-align: center; padding: 40px 20px; color: var(--text-secondary); font-size: 0.85rem; border-top: 1px solid var(--border-color); margin-top: 60px; }
-        .no-results { text-align: center; padding: 40px 20px; color: var(--text-secondary); font-size: 1.1rem; display: none; }
+        footer { text-align: center; padding: 40px 20px; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid var(--card-border); margin-top: 60px; }
+        .no-results { text-align: center; padding: 40px 20px; color: var(--text-muted); font-size: 1.1rem; display: none; }
         @media (max-width: 600px) {
             .post-card { padding: 20px; }
             .post-photo { margin: -20px -20px 16px -20px; }
@@ -63,15 +58,14 @@
     </style>
 </head>
 <body>
-    <header class="site-header">
+    <div class="top-title-sec">
         <h1>DVORZHIK — БЛОГ</h1>
         <p>Архив публикаций из канала @dvorzhiki</p>
-    </header>
+    </div>
     <main class="container">
         <div class="controls">
             <div class="controls-top">
-                <span class="post-count">Всего публикаций: <b id="postCount">67</b></span>
-                <button class="show-hidden-btn" id="showHiddenBtn" onclick="showHiddenPosts()">Показать скрытые</button>
+                <span class="post-count">Всего публикаций: <b id="postCount">64</b></span>
             </div>
             <input type="text" id="searchInput" class="search-input" placeholder="Поиск по публикациям..." onkeyup="filterPosts()">
         </div>
@@ -81,7 +75,6 @@
         <span class="post-date" datetime="2026-08-31T14:17:24+00:00">31 авг 2026</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/184" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(184)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     
@@ -96,7 +89,6 @@
         <span class="post-date" datetime="2026-08-31T08:02:01+00:00">31 авг 2026</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/183" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(183)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     <div class="post-photo"><img src="https://cdn4.telesco.pe/file/GwR1findNSEsHv82A5_NWAgexDZMHfqNOTWEoKeCRry_M01e2Jt2xZTZLf1Q--TnqkOESB9edGwEiVi8gMetOn_j4fBVbpTxdsyOH3EGni9E6cBwWFuAHkJ2Wl_cKeCKNvSkLXj53-G4zvoK8hZ3NIOpX412LRXsMDwC-EQkWDXv7kvP8jGPvIRv_DBIGVnNa-vyc5j-XRaPQxW2myf-7qFbLWOi1Y4fNhAEbJIUsqAN4y-0IXn7np78elI9lUGxtBo5ZNL6Ad58Ucq9O9Bu0QFb0qY6vrwbB073gfjsMgBiAfIpe1wQ0AdN1aC2lzdWYfnAYagtVInRsApO_Hkzaw.jpg" alt="Фото из публикации" loading="lazy"></div>
@@ -111,7 +103,6 @@
         <span class="post-date" datetime="2026-08-30T14:17:08+00:00">30 авг 2026</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/182" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(182)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     
@@ -126,7 +117,6 @@
         <span class="post-date" datetime="2026-08-29T06:09:48+00:00">29 авг 2026</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/181" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(181)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     
@@ -141,7 +131,6 @@
         <span class="post-date" datetime="2026-08-26T15:14:01+00:00">26 авг 2026</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/180" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(180)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     
@@ -156,7 +145,6 @@
         <span class="post-date" datetime="2026-08-25T06:45:25+00:00">25 авг 2026</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/179" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(179)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     
@@ -171,7 +159,6 @@
         <span class="post-date" datetime="2026-08-22T14:00:27+00:00">22 авг 2026</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/178" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(178)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     <div class="post-photo"><img src="https://cdn4.telesco.pe/file/J2ugfMrwc4CMN4vSE0MgpWdFWqmB77fvDLmmw7HQhnlt8SVTY3f_a34wlbYQXWjpm09GrC7_aI-L8iPaeITkT8zuhQ3mDpDGkcZg2NOWZeLYxDDavHKkup0VqNqOpBEgfkqt8RdMQgzQYGFOuJMhVTHMWEkrW9e2YguxdPBme-SIp6bv2DVPKe0dhuW-aVjzkb0Ir4q9sSLG8iMGkDpQXsECS7Q4HDBBD4dS0Mt5iwOi_1LgSZ2xkNQOVHqqKYy_dJ5efMqCoYUNuif83pZ4QJR3MFGzo5V--kjkDF_O1lCBwigL2ajhsZjT37s9MZtFbHhyQgz9XpagX4ldIX-8Qg.jpg" alt="Фото из публикации" loading="lazy"></div>
@@ -186,7 +173,6 @@
         <span class="post-date" datetime="2026-08-02T07:45:59+00:00">2 авг 2026</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/168" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(168)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     <div class="post-photo"><img src="https://cdn4.telesco.pe/file/MLYVGsFvWtU2e-Qq1BPNOragQ0sCLU7gvfT2pxmRfcDGJpjdJoTV-ezpqgNwvii9J_g7qlSz0uZ37YOiz0YqW293rViae570gNppbVEqP8uFw5ys-4iUT5v_c7h5pOaFc9J2rmLn9Ys7CmPIRDjDRipP6II1tE-aimuGKg_iPHUK-HtgWCFpt87aB43jx9L8NbdZZBM_czN7RI6Q5-sv7oHRzcrKkZjmVSwNl0AwEtoiHwBvEgOki1dSBOfetvMogyDQO8HNJ4PERiyY58R2sOxRqd82FFVrC8Tik5UuUTn1gA1Yq8BWKgQQMS_tC3EbaLWiUDom1erSUOTAnwZwWA" alt="Фото из публикации" loading="lazy"></div>
@@ -199,7 +185,6 @@
         <span class="post-date" datetime="2026-08-02T07:41:49+00:00">2 авг 2026</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/165" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(165)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     <div class="post-photo"><img src="https://cdn4.telesco.pe/file/ZJ8RoLbeingaCwLJAeFSS9jVbClbynL7X_jBf88AZIKa7lSOjlV4cPD7uYmn1OqiJm4tQeC3V-EnPhcX3josMVFLtZld2nh-VAPdIETbaPqSb78Wz9G5kHKed0IkiAeVp8fUtqhLS_fqVSDDUjHqUtX4tqKcy5DyCxM2j0JTeFT2_tp-kwJlOv36wrBF4DrDiaPKtdasZKLue-lwJqzX-RllpDSyQ2CFddSNxQxEj76CoNXAQWXdIGYuKt0wzqdsJm5qvrXlbVD1h-Kv7fa2wM0EE3BQyOWAPk9Cw5lI3KDa-bRGAEJ9hXXP6hQIJvfFJZCUC9FvmebxgaEEEyJg0w.jpg" alt="Фото из публикации" loading="lazy"></div>
@@ -214,7 +199,6 @@
         <span class="post-date" datetime="2026-08-02T07:38:18+00:00">2 авг 2026</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/164" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(164)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     <div class="post-photo"><img src="https://cdn4.telesco.pe/file/PM_7m7UxlKou3eYVfoliNyDzbzeQ_TwA-VwMMobTXZojpXahbFnpi1t-udCfMW1m-ZZekNFSRlpslbTdqbrugpxy907EstBgbfIb5_XLY5kSPR7sENEFUo-D2uqFt4RQUAO_lDkPQWsBcU4114oW2uEIORkmx3jTVufAD9YlUKvB7cYt7C2dUPIIcMCY38HWgF8bCh1OYMMKmIfUoRRCFSIDnI_VNJSexU3-7atsrNVXjWh3xwhE9hqoz5AnFJ6GFlsd4i6uvk05Y6awqA0cWHH8DJ_naVinUHwkG8Rt61vMPO1inmPrpNm1mMs3CbttzgZEzN21TK_GUpEmXpHOVQ" alt="Фото из публикации" loading="lazy"></div>
@@ -229,7 +213,6 @@
         <span class="post-date" datetime="2026-03-26T12:01:33+00:00">26 мар 2026</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/163" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(163)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     <div class="post-photo"><img src="https://cdn4.telesco.pe/file/nExGFk8Piw5d8r0zVb3EknhcEHiEJUBiHaIkxPzy1OtLUnePFSCp9luH2D-8ZBJSxu39mV_lEqm-gciXAq8Fb0sbpMNFJmibjTyCPZ2QXgigzKcsEZQXzHV-eZSsDT5yAEvys7qB6n_ZJnyZgmYSuK9HHQkHoQA8bfjhxuy3nVh-q3ePvq4R3NxIz_OrFfl2QGnNTZNqBurVn8dDJh2XvWIwBAPyL05G6DNVO13iOCLi7lYJAN_-l7jkcZ0-V_PBn9lDAAh8g89ougKa2uj8T6oCpJdrNUFtvknPygeCRBeMNB45-EDOTHa1RzmUByni3uuoGaLdWKhXxYtpTttvhg" alt="Фото из публикации" loading="lazy"></div>
@@ -244,7 +227,6 @@
         <span class="post-date" datetime="2026-02-25T07:53:50+00:00">25 фев 2026</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/162" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(162)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     <div class="post-photo"><img src="https://cdn4.telesco.pe/file/Nss_Hf9RS3sc7CrfdyNsMYjpM49zkREgE5XjyTDlwqnw2_GYXIbO8pmrbWBDpoWKnKHothqx44ngbn1RJM9HRi7T_l7mLnyaTjiPOzF5FFik3RbBYs_NL0yW0Q32TD_gw15hAO1wC_LswRbVhVr7jSaPqKBeK_mU5k15DJrlC7_ag7OYdV6km8HiwGTeBIrGLIRs9mHbEjSeOtGdYzT0ov-Zncp_HebnQC7ooXsn0AW-TbtptvXd0w5zKX96Ua1TW7U0weZ1lRRG3QpGgtKusBxHh3xYiEy-HdEQjLmfwNv3fT0dtFd-CflZdoSOljIrR13ctLOGZFHzfNTHMQFkLQ.jpg" alt="Фото из публикации" loading="lazy"></div>
@@ -257,7 +239,6 @@
         <span class="post-date" datetime="2026-02-25T07:53:17+00:00">25 фев 2026</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/155" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(155)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     <div class="post-photo"><img src="https://cdn4.telesco.pe/file/TcIdadNGhtekoTek7R4J2Fk2tV3XFdqKKxmDKENA-89umreAgAQtv9Lu2xU3VAVRpmtno6QhNp0wnhzUfFYX0Syk18PkMSzz4XXojiuuygiDODns1B-Z-Qtkyp6RPfZZdMtZXBcOiLa2MQDBTGFVRTiO3s7LgwdRaB2GvPRkgkIl9Kik7MgW21kxepFyI_pzhqOaspU9PEgFZ6wTt3xLkkBpHJGqsVSlo58IkvSNi8uctn0sIHhuNV2swVMIGJZJjNgJz2haV0X23u_Fl5XydUZ6FUsESP6rf9cmMUlKpLOLUj2roFnjZ8-uHtF--NG3Nqz_FMJtSC79tBMAa75bLg.jpg" alt="Фото из публикации" loading="lazy"></div>
@@ -272,7 +253,6 @@
         <span class="post-date" datetime="2026-02-14T09:07:52+00:00">14 фев 2026</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/154" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(154)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     <div class="post-photo"><img src="https://cdn4.telesco.pe/file/uI1SQd4GH2rS0rD9JO_GpFpmGSCELxtuJXMPTuV6rBuLbyllwzmt8APROULAxo6ZbqKqTSYZelFEtNbEebFEbBsZP4pfClU2MEtDTDr5up0Vi6xzyd7gwBn_aVCuLpy4Ybd0AJJjWmUQcdIOfdNoo1feySiML90caktGGFWKXT-Fd-Yafl-9J6mtqyb_pN-G3gu6FYIE8087BYob0vNdeYY-SxLLc1UW3hy5Jxmb0ayYlJ6B1cCl6y3qtNsJKG0SDOLEkq8PzH45H_5gqsJp5oT91JbLxmnhoHGc0ImpJpi9exx4wjK2Jz8ZBQAa1OKmNDzQbf01qCpk5Ggydj0DyA.jpg" alt="Фото из публикации" loading="lazy"></div>
@@ -287,7 +267,6 @@
         <span class="post-date" datetime="2026-01-22T19:47:26+00:00">22 янв 2026</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/153" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(153)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     <div class="post-photo"><img src="https://cdn4.telesco.pe/file/URmNA_cqE52NCWf81DHKwoH1EHWjCLUHz3UewHvbQOTLtGmkT_vYC1WEpUwL89fE3BXBw-9OVAfx0JeUJZvzKufuFfHLBUWeuoPQjkHv3H8d7_VlqxoYe3qjlbAqFWFCfyVZgcX32ypDPTtPeik6uAtxTPMwPP1dcS3HDTNNwPd0bRSrodzFjPwW_KuaC3_eeE3wjvbajH_B6HDlU0GaU7A1Vh6sCdBxGfJTGWb_ei7nENPJfWgR1qGSHtcIu1dG4wzK7CxhyboA3pZ1glhxZiOU9iuuhyFCqiUCCetR6mgEkFrLDZEHRBylb3Am4uDiyc8r9Cezq-kzVxJNNjmGGQ.jpg" alt="Фото из публикации" loading="lazy"></div>
@@ -300,7 +279,6 @@
         <span class="post-date" datetime="2026-01-22T19:46:58+00:00">22 янв 2026</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/149" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(149)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     <div class="post-photo"><img src="https://cdn4.telesco.pe/file/fYVk4zHKBAVlvcBB8AO3_n17YPw2XkzvqtYoRDvl4N8JYjUhlNqx12LH7d3h5lu0HjcuYKplU3qpi7AFHqBM0F0jnXYev4_A8HR-oteXQQFPZ0y55E4g6dr_7vUuhYfuTb5JfxAItdZQhcETkaxeSy-3heGcdHN8XT5-DQIQ65D5Ru85QucOJMlX6SxOIUJ8xJI4L5EeFzlh-Z9FH7tzZQI34z27OKgyI023cd5P9kw-oyYrl-wD1IWE7PR7DVvGnNDmcwgOvz76EFSLCaWyM7_Wj1CykCwTLyTYlk9U9l2Ld1FkKRDgHap6bX43I2FbdsAb_cC8IgHfdFP1zPdMUw.jpg" alt="Фото из публикации" loading="lazy"></div>
@@ -315,7 +293,6 @@
         <span class="post-date" datetime="2026-01-18T18:03:07+00:00">18 янв 2026</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/148" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(148)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     <div class="post-photo"><img src="https://cdn4.telesco.pe/file/lkdQuUcTw9343cdjgZs5g5TN9k0mFscW470vhPS5O9qPAs7i1PFPFR7H6yshKZVZveDGrAVqj-JDoMzMIXDaNPHzf7xpwlbaOR__Rrp52HLIa-kHneB7yMIBavwP7jrqKqdNxVILSkmN6rYfBkFOlnbziXw6_jc7_5_U7tW7R-Fepui5NxLtRAy8Y5uIG6oQp2jNSa1fPbep3aU-sh7eKziSk75E4wc5tXzQMnr5xg82pbv23xage7I1MA2IMxYpeV6gIlfEHz5G0TVrnzRGKRcbF0YwX0pw7dJelNUHRy9IJace0-3_jsaxAGSUvLXvrj7nms_s3c0wLouGDX56FQ.jpg" alt="Фото из публикации" loading="lazy"></div>
@@ -330,7 +307,6 @@
         <span class="post-date" datetime="2026-01-15T11:24:50+00:00">15 янв 2026</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/141" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(141)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     <div class="post-photo"><img src="https://cdn4.telesco.pe/file/XHMpUwPDtGmrUUNyNBMMiwlZPYsNxKjpgS6XNirEFf9_8boZDtAGXZPdndpJiUVCHLCxW6iz0AdMKnr-jy7h01jK8ocTz83Lz6YNoHYYQO-2yBOc1SOUryNGK3xjNjnjmWIFlXf89SMUzZy50OxoFtS0wTbNLyPD84zdtWoMQfO7etVvQ140qIbOsYXD4UTy3csg-l-s7W4-s826_79K_7GUBJCQIbR6FOh253-ScB4yiZ4XCvjiVp5vO5DgKfQ_JNjyb0hW1fvCgUSeRX9IU4RQN80ftEedfVUNjEoWfqwNyDUg5MiyrqbOKADtoablWvNSoNyFzF3lSWCzoLoXOg.jpg" alt="Фото из публикации" loading="lazy"></div>
@@ -343,7 +319,6 @@
         <span class="post-date" datetime="2026-01-15T11:21:38+00:00">15 янв 2026</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/138" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(138)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     <div class="post-photo"><img src="https://cdn4.telesco.pe/file/CtOi7BN2XVy8V2JcJ-en-xABVbOiulUaCojZOEeIz8mQP5AxTHlnDp1rwFuCF4cvAHpqQVkGO-Jfnj11y2qtK9zV1C0WVKWKRqPs4adapvO9-UlaoMFB4-Hhwy9rzaXBuX2dviZrrtvnfGJWfjbh4gOr3uTR-2IaMwRioQh_3lA7V66Gl9eZ4VG7HaDU-3IzRxB7C6Px90_AJnWgUtwxiqR-bh1oocRrtd2xzDR4w9znMRdlYpYe_A9mSuDnEzqy-9g_mmIiWeNf4gIqTUtpLwZ-S_TGDH6tiDhiLlcztf5oTeb7Td_4C261Q46PPG8-kJtpdkdLo9r6DkqUJmorjw" alt="Фото из публикации" loading="lazy"></div>
@@ -356,7 +331,6 @@
         <span class="post-date" datetime="2026-01-15T11:21:21+00:00">15 янв 2026</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/134" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(134)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     <div class="post-photo"><img src="https://cdn4.telesco.pe/file/c4foIRXSaaO8eMqEdMxvv-KxXljulDnrzPt-61sdeA2e5erluEfREf3HzAh5OIG96QasYP7_VJnCegAqgJFeRM0SM4QCV0X7LYEz_IJI5gdhZNUcxVqPdiGMwOCR9iU3yALAiAVmGHg2_2cOngbfBeiAvHp98p20XPqsMn4w79iQY3gpdW1oR302MI4rPnVO1pj_APhqH00lYIGBmF4nuIjkKKhio-1UnaqiinVHZAENYfZcF60FjzQOJY7WgyVFeS9L__FKiM_4LkSltGwjvKkLOiEG04KxNL0q_y0Z1AEsgHayhSty4dklkKpbhc8ZNje5Z34YoVOYkpS7P8-RlQ" alt="Фото из публикации" loading="lazy"></div>
@@ -369,7 +343,6 @@
         <span class="post-date" datetime="2026-01-15T11:19:54+00:00">15 янв 2026</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/128" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(128)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     <div class="post-photo"><img src="https://cdn4.telesco.pe/file/FEdyrnhFJtfXIhwxePER4G-wZy25G8jyVkKdv4f7BBk7_WD23NcFef8DiPTZCjU0bcTj0TDCsQN1DJ0ZfNqVd0JC9ukG8U6-NLsRiBgo-qmJAvnYFMplpMIpFgWVJeLClX7pglU058Z7PuzHxMuNlicTK_3-i-qw0oK5iqU-NwH9drpQOEYKnekhx8xmR9Ap4S9xF-jr_J24H4Ec9unVEHNRCZBBKbeE2lrCJYWa_2MFXLnODr-e34kTSdKRfH9H0QzCvYAJFyt75sfvvV1K7F-52fMZ752X9-vTHu98BL5jZ-q2bhMyn0KEWz_2KSMfi-lIRAL3JC_uOSE7rbC0Mw.jpg" alt="Фото из публикации" loading="lazy"></div>
@@ -384,7 +357,6 @@
         <span class="post-date" datetime="2026-01-01T12:21:17+00:00">1 янв 2026</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/118" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(118)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     <div class="post-photo"><img src="https://cdn4.telesco.pe/file/AS9P5wi-M63T-IHFU-nZ5osmXIRuSu9QT1fvYYgPAhkzTdDahnaFefy-rFSTuymY4K3CkGpi9mZeV9qD8cW5Q9bIgdugTnG_DvLuzOZa3RK2bHHAlm-zQTAJnsU16YsaWXiTABznZ6KlINJFh1cOBC5Z966lmpvCyx8Q--mNWFWWFgH3fMAb482bO_fbxHfHelJc1FF6La_b47nGgaEJDIHQK0AlTaSY4uaWjjCMhzzSaAKTwLy0FlwSXeYITzpFqolLvpx9SRzOvfgvOHmvYZpy4nu-C_aXGkmrzIYOe1SdtiI9QBLB3IJq0Mal_N5SA329PE_MKInx5CwfqHtFTQ.jpg" alt="Фото из публикации" loading="lazy"></div>
@@ -397,7 +369,6 @@
         <span class="post-date" datetime="2026-01-01T12:16:38+00:00">1 янв 2026</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/103" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(103)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     <div class="post-photo"><img src="https://cdn4.telesco.pe/file/XZicRUZ5Cl3iZ8vVMMlIvTNPOJiQ6uw1GqlPa7XXKghZDfKhgrFuV3yMVYmPStVV1RsLptlh7HljG4a7LUfLKqVTiAztTVMypNZlhs-4URA3TL8zRLVWmCD9gRpHeSEFpwdzllUcNf8kTEVh4maHmV5TUtLBG2Y3hs9av50-8sB9AQbPB0VDiIHE9KqL_FnQVkgkXQihyVmLYLYv7Ch7RXxEyZ8o3XADia0VUqxYQkU2UhZ9l69XMyh00O_EYK7nwi3DkTgci8D_0rKzQWLNA8PhLnuIUE11cIjAxtyXMAcOG1zoYM3EfkdBn0Que4e_24PJXCNhNb0LFKRegTi9Zw.jpg" alt="Фото из публикации" loading="lazy"></div>
@@ -412,7 +383,6 @@
         <span class="post-date" datetime="2025-12-26T08:16:16+00:00">26 дек 2025</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/102" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(102)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     <div class="post-photo"><img src="https://cdn4.telesco.pe/file/Dmoot7TL4PAZ_79MDaah8gy6s0iD7FbjR4dXhfuHe-TBSyTGwl5yjuMzi2Ml4YAg6v085vw0-TxEGL3roHnQOFHpO-OepIEI1ZBAsInFY7PJLZKWXeWQg4FUMLmJIJ1X5oomXpyDfXTY-2mH4jyjeFWmi8vblEaxyC2-V4xEIsVaJV5UAl1kkC2JE-ZFdHYf_TTFkK8btlUQ5E7_zHZgRxHAr4JYBCoUx3MVjbMeZhciPddco9F-JdvIaDGS4Dwn17FQs4mdjIW2WnKAmwAMQ12E2me1kbemLbMxWYv9WWb-66ZQc05YeeXT8WmMNvEq2spqtCnsV5LTdHTqfrrOfQ.jpg" alt="Фото из публикации" loading="lazy"></div>
@@ -425,7 +395,6 @@
         <span class="post-date" datetime="2025-12-14T13:59:28+00:00">14 дек 2025</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/101" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(101)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     
@@ -440,7 +409,6 @@
         <span class="post-date" datetime="2025-12-14T13:56:28+00:00">14 дек 2025</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/99" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(99)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     <div class="post-photo"><img src="https://cdn4.telesco.pe/file/vNG69hzRfqBnZyF3X1fANy68Tz8qUEFwY5fSI2B2J2WueGuJBsyIpXkw2SZ1__J2D3CVK6-M6uHNNRSqKhQ1D_EXLUBVa3OqeaVcViV7Ruv98O7-fD14nY5WQ9POhtFA0XvG_0lMDnESwDH8JzAPH44JSeNdRjRdnLgOMBDON27leQ8zAhZaIpvMG0VHsBNg-d4MyupJw5YRuCgWt_tM8xMg1LVgNudLOpSFmvTSEGZB9STUaWEAvbSJwZxSMkbjHBQbk5bauNelCDJvLXyo1H85DWvAt36TCCZi-JyGpU2nGNsUbaceZb_MInDGcpFK_RGv7TTuNThTrVTEgsMSpw.jpg" alt="Фото из публикации" loading="lazy"></div>
@@ -455,7 +423,6 @@
         <span class="post-date" datetime="2025-12-14T13:52:05+00:00">14 дек 2025</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/98" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(98)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     <div class="post-photo"><img src="https://cdn4.telesco.pe/file/QV6mHE4glSRecfaW0XKBGyO7UpIH25jTcmmDxH2qqxYDQlz-u01R5YSPjqHeLMcJUh5VmjuI_axx1dKL-WUGQ9fJWW2oLx5SZsyyM35BBddI7Y5Ld0Z3ascej7hesfWsKNmTjTMYa71fQurH6RLucqBONYBWeNNNCMie4n4xd9bfCnpuQVLTGaZbclcY3u8lWtepV5kzt_PCt0IMebLOj2jmq3CupNZvJgumaj4BB84PuIOyeaskKGNYxY0FPLods3U3ktjXL6f-SbQdu_z5XXGE742FDbqaa6JwI5Bzz-jJfBeb6AEz5H12gUgLH7tdYi3PucZUHJoyhQdP5cZsfw.jpg" alt="Фото из публикации" loading="lazy"></div>
@@ -470,7 +437,6 @@
         <span class="post-date" datetime="2025-11-02T15:54:58+00:00">2 ноя 2025</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/95" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(95)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     
@@ -485,7 +451,6 @@
         <span class="post-date" datetime="2025-10-14T13:32:52+00:00">14 окт 2025</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/93" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(93)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     <div class="post-photo"><img src="https://cdn4.telesco.pe/file/RwsCv0Y24tqWECfJwZ5Psjxo9_8koNBVrCFxM_hhVtm9NtL3qZ_flaE3wMHCqfFPxbi2dOhwhdEKIGessR_F5UoFk1K68zdBeES8dVZyGTvW62tl_sICankC9wIMunoVrNSsqpwhwclLzgqRUArRjMQWQNNTAyCP-PGK4JFN6qf68JGCYPyQAMjd3BCVrO586ALEcGRXBU4DQwj5-9gyT99yA8HAxcvCU-KjGOKkDQJdA5HynOc04NoZ7_ViOoFYc1kGdl1y9woaJxP4iRWhcFmYPuIxNnVe54htRjEjLYrUKRxrBmDVUKq7k0MiHyWBEb__PyS31YIKhJpf-j9Lgw.jpg" alt="Фото из публикации" loading="lazy"></div>
@@ -500,7 +465,6 @@
         <span class="post-date" datetime="2025-10-13T18:08:30+00:00">13 окт 2025</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/91" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(91)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     <div class="post-photo"><img src="https://cdn4.telesco.pe/file/D0mU64-hGTR4-5buXYdl7ZniwAslihvucRjONGSBNFnNGR-P2MQec7ZN0GcpHaxOi7OTk4GBWrY-_MGb-gWdPBNkZEpViaK_SXqK4XxnjjjaEPGte9WruaQpnGYVpQ9w-rx1M6y3bT7HOPur2icB_mXnQEs6OpjR-VwEBWQ97JMD73JqBm46Ot0SYGwH8XF9-hAVwWnNsHmYFFrMfbD5xE3ltmz93ZWiF16JHvR_SICrooEnvBiMGlJ3q_5jAlRzMJ05MTmLlbibOGHSg7G04tqGjxFjixec9xU6cZ_SLYS_viY75uXBUd4fCpMWpiF-xPrd0zakof5A-fbpZ3lEog" alt="Фото из публикации" loading="lazy"></div>
@@ -515,7 +479,6 @@
         <span class="post-date" datetime="2025-10-13T18:08:30+00:00">13 окт 2025</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/90" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(90)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     
@@ -530,7 +493,6 @@
         <span class="post-date" datetime="2025-10-13T17:56:04+00:00">13 окт 2025</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/89" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(89)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     <div class="post-photo"><img src="https://cdn4.telesco.pe/file/MhquIvJhOgahNMTAZiuN4jDSWCHhvBNV4I4NldgvaUWZwZEdewbMuhdw5gVpb3Ljc3IGEl77vKZtQ0HLTP8Ud9w239mYhKFztHn0VCUXmDQtVf9Y2Oix7Q2cEu0P-CgNLlfIuvhiUR8GWwETXpDW6VQz2RHvGL_oTpgT5KOPmeOEVNXQVQiHux1B0TT7XLBwIHVVxxKx6U9gd04DUeO6dnuL3RHrP2NayT3GxrDho2xa0o2eAFCve3V0LKI9elaC0AyHgG6b86wvBYWbZAJ0kv5_As7EQM69otKHtIr2TGH8qLrL3l4RUYkn6j1vSfFrg8rX52waLGnFoeJfN3OSMg.jpg" alt="Фото из публикации" loading="lazy"></div>
@@ -545,7 +507,6 @@
         <span class="post-date" datetime="2025-10-09T11:32:16+00:00">9 окт 2025</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/86" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(86)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     <div class="post-photo"><img src="https://cdn4.telesco.pe/file/F1Gaw8zhb2AQPVM7Um1hkUG-FJtsgKZO-w1zqigRQLi_vic9-36ANjHR6-EOtyGqblRO-VRG5MkuXA7XoZO1wq4z2PsialCgWPSKsmOjvwUZ9XR4ydDX1tROKdoMymji4jdYjYq2weJSObPD3jM0CRlEHtBFBtoZBiy-N3w5kk50Ld08S6224j2dD211RQv51A2pq4cso7Swr3jK3g-FWakHwNjpdfeWINvPbMP0uzRTTjDsRaxNNUBpnZ6wXCdjQh7EPMNjvG3jkr79NSibVROtzrP6vR-hjqYqzadPy3seZtpKFu1Hrb8RN5XbGDE8a0lWnENeYDydsuYfyskahQ.jpg" alt="Фото из публикации" loading="lazy"></div>
@@ -560,7 +521,6 @@
         <span class="post-date" datetime="2025-10-07T15:04:42+00:00">7 окт 2025</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/84" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(84)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     <div class="post-photo"><img src="https://cdn4.telesco.pe/file/Sj3eZ0wBKXOE8de33uiOG2kBN0OjmvVSWEv798XDOoOwMa_rDqGXRKPobmhPGwjFHPwmZCzTpWSIv9ltnS36DaGnaF9fjcQgGVVp34MEfmT8qDV5e3jkhyKkj492szU5CcUi5hpwnIMZF0n-xjyQZneWMZtEo_j-va2ITjpK2v8ILK7Nrccw9JgDpIXaxwkJXilZEI6VhBaO7cwdKg_rgjpa8h3YW7iCCq8ENEmuTq47A1naow1nMz-vxdbX2jYq_Zzyzj6G0LqNWVNzpWdUcfEIQdvQNJNOuekPxeea4rTQSGhVBPs8nbXg3nS5ZpfaxdhA4bbiyO2r4elg2rImfA.jpg" alt="Фото из публикации" loading="lazy"></div>
@@ -575,7 +535,6 @@
         <span class="post-date" datetime="2025-09-22T10:22:55+00:00">22 сен 2025</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/81" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(81)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     <div class="post-photo"><img src="https://cdn4.telesco.pe/file/E_NIsK6ImiIGAiZL1CGl70XT1uEE9qEkCZvouf5Tx0czXBJKnbVYt_3fFbx9ZlZRM1sZM5YVU4kq7xCjBnwAq6LSRoSn2T_JFwzGregSVfSfctRFE7XPTtF5Wy3M4WsbVb02V-BLSVR36rw9NRhcz9yM_SWWfFcmrnwA3g8oozYvzCRidFk9sgQ2KWrH4aqJlotu_PFZsEZb9JdZzYhqdyxKsWa-hYDdt8l9rnGTkM-3ZwCxt8J5_JJ_VtM9wxdwleHv65GmgPwINmbAEOVU3zG12tCB_97pSmgWYfOGKFAJuHC6yuhZBuD0Vec7-MGHTSsvnxVoyjOpNXmJfY18VQ.jpg" alt="Фото из публикации" loading="lazy"></div>
@@ -590,7 +549,6 @@
         <span class="post-date" datetime="2025-09-14T19:05:14+00:00">14 сен 2025</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/76" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(76)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     <div class="post-photo"><img src="https://cdn4.telesco.pe/file/mUNCE07Urq_8uKFVEOzpQmZ843YZ6_dxIvsh77m0zUrNPKQJNMlT1WxbuZoogohuEmDBPIflP2Cr3CNmXiaoqjrPI-35Rli7ony9I71ZZR7VHICSAlTjXrqbZ2hw3kwJh1IYh9Y1_L91-XS8GXBc-O3d8JepOixbNnRQOKfsvH3TADTXZAoK_7aX09dHyUGS4bBlwP17lPWG0msF37BPzC-hTRzx_HrLbMwe7olN42vyW1_6CpOiG3nH6jBeeKKiFZ9tWhAyHyBfrG03YLb-VV7vwLaBmF06nw1H3Q-JRpuD1BYo97PBk21KFO-Ld7hfJByzSr7AsxcTSRd45IJnEA.jpg" alt="Фото из публикации" loading="lazy"></div>
@@ -605,7 +563,6 @@
         <span class="post-date" datetime="2025-09-01T17:17:51+00:00">1 сен 2025</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/71" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(71)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     <div class="post-photo"><img src="https://cdn4.telesco.pe/file/j_QZ7e96I3sdDJu4WyJHAIVUEnqbeuHiS6zsSiSFS3szeBZovQyNMSw__agIDkXq1gsqkR0IaWURbqnw_And-41X5Z303dU-FGQVBAG_xVlMXjWZVaXuQXzLRLsaQHxhuRY7YsmJNEEwYEnqMeJk5GaVvUoxT-chVmMqZFGISQDV1-Q3-nCEw77q7IpmobuCIzoNaI0YppVNw8GLf11cTbPDII_no_O4oo2_YvRYe1SEC4kcryAiWkwe_HD6uI_XC3sgvwXPs6acFWvAaWsabcHSYWN0l9dGeCZ7_9tkatwn_QFlasAxRSEeZKP_F2kyzeZXqT98mkZwP4nLKQOVWg.jpg" alt="Фото из публикации" loading="lazy"></div>
@@ -620,7 +577,6 @@
         <span class="post-date" datetime="2025-08-29T15:05:15+00:00">29 авг 2025</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/67" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(67)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     <div class="post-photo"><img src="https://cdn4.telesco.pe/file/BpqFaeeXT-YFWWv8yFJauN9N4F7ve13ep-dTzNtkiegcqRUbmFFwDQ_t7JNaHI7jbNRFVfJoi-73tzSbpvX-UAC4X1GXl-JFUEmW6GitubswUJ6lb_h0ae1S4BqNvNwgs0cxd_FaIFi0St5fjrkQL4d7zVvDKoniFVuZcK3We1DLe9O7XnLvRNvbA_hl-JFKNKxhNwHCqv083HtbbDvXzxdf3ciNB-OKLYlpKKR2DLuIfxTdeUlQJGUcG4uFjsoPQjHDySZdsgRN8R7o-x1_edii4Rno7QBYNCZXtmCk44o6GTt4_0WfDxX0q9TSNlLF3QKuLVX596iuVALK9_YG3A.jpg" alt="Фото из публикации" loading="lazy"></div>
@@ -635,7 +591,6 @@
         <span class="post-date" datetime="2025-08-12T19:26:59+00:00">12 авг 2025</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/66" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(66)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     <div class="post-photo"><img src="https://cdn4.telesco.pe/file/lbuKyhWjFv10dZPj9wnG6a0hxH-0PKt6W-IEchz6VzBq6veB9JpmRRtTmVqw2or5g2eeVgvfoDjtFVFavLle9KSPI4OwNy8o4CqdNSzuHtOQtd5jgkNQGjO8aK0x3BK9uFZYBZyHu9XdJdxVbjhODG0cVrKxE7DZ0B9KAExXeIazpF6IHlQWShY5nOILntD0WrvSFK5w4j5M4OOIC6y06jQLAKHrCS225Gz5ic7DLafgilKA25Y25NCxe08EC4A5vvoqCxrkeU4ZnBwU0TC9LTGSaTPCZ_IOmopVpwBlqXnJP97aXqd941GrL4EIp1HDWSNtyxjunhgpdSs4vNwMgw.jpg" alt="Фото из публикации" loading="lazy"></div>
@@ -650,7 +605,6 @@
         <span class="post-date" datetime="2025-08-02T06:01:16+00:00">2 авг 2025</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/63" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(63)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     <div class="post-photo"><img src="https://cdn4.telesco.pe/file/VjDc2nxv-QVFbps_vIyjxg6lkUMCFIVzGfzgBvIMQA9Y9fNtX5QAlDy7_x7UwwoBIZXt_cfe3sqLOwrfu9BcFBucQfCrwvvqyqUR3-2jVkMi1Zvk2uJrWBCK9yvpwtadFaXua66ckK650iB7NYtfDr-u0X0OvSy86OujZosJ33BTjmq1it4LHuBE0nshE2xZzQGnfeUOBaSlmM-RpZkzuiL4KWmAo9wx8MU231hkDVrrys91a8zygXZMaJLoX0Aik1ow0nV0JPegDgus2d5LSmNFL_7_YwfvsWNM4GT0x09lbC_jTzflgyizejyGlFsQTf45WgalDI4rSbwcGeaTJQ.jpg" alt="Фото из публикации" loading="lazy"></div>
@@ -665,7 +619,6 @@
         <span class="post-date" datetime="2025-08-02T05:56:12+00:00">2 авг 2025</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/62" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(62)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     <div class="post-photo"><img src="https://cdn4.telesco.pe/file/gR7fP-9jf1HnaFYwZfY-46AOM3Twvd4jmylCTTEARJED5c3Hi_BE01pRKb5ywemGSIGwBd384DPzin4RFN8PElaj2fnf8E9FInJ9XB86b2wb2WYPWBtV4zHJJxvDDcOliDEpzl2QvBnuIXdYnb7ve2F1iWbyVJdFX_kYwmPcphhviqXWSxacf44SVJUNrwdqMxJGdRGiuxHRxDEN4qL7K9T6cvxnIsg45YbUYqIGNxjRS4qjO6Ts3m8l61mRU2scnPoErygDcVrUZal7m3-Vs1zJ6XHTA5NAlwBl_ROepFjEe1dWAg61jLcV11aX3m3JWts7VM5XsmMuyt0X_dLLAQ.jpg" alt="Фото из публикации" loading="lazy"></div>
@@ -680,7 +633,6 @@
         <span class="post-date" datetime="2025-08-02T05:51:30+00:00">2 авг 2025</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/61" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(61)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     <div class="post-photo"><img src="https://cdn4.telesco.pe/file/etthaCu8A_jhU8_-AXc0Z0F1WDboUMbhEkTGEN7rMNBiYjleHg_dcPi_fZyjmyfHTbwACt5X0L-u0WbYuZNOqbo4Y_4rgEtjhHQTujfz_wZ0FDkRlQFk03OFt44iO-r6NFm8ZsTZsRZwLNFV0KQ9gcChnYN43PAFUgipkP1jajg7Wp4YW_HakI_Ha5DsHRkuQTTuBGPTAnYUCbPdzjFD01sPZ3ePve_2OQ3sO9K0AJsus0fUFOInlsIdv7LykObRr7gtCz1RsbE_7DP3cEKWpBcZJmFwHSWXfUN8sCL58t0ZJlW6uU76uk9uSn83tlRP8aKKqzMz03-pc_S5S3xbNQ.jpg" alt="Фото из публикации" loading="lazy"></div>
@@ -695,7 +647,6 @@
         <span class="post-date" datetime="2025-08-02T05:45:09+00:00">2 авг 2025</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/58" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(58)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     <div class="post-photo"><img src="https://cdn4.telesco.pe/file/NQ5TlkIARllc4hXfmj7zLvxKpIzJN2ObozLuILkX8keFIeTrhD9zj1akc5YlNcLt4vbGncLLK_5SlIc2vFoyGERtZKxUuWhyil65GQQ97AIGH64ff0ZTflS9bTRuebc5U6xyFMXyVEF36FRQw_9xAdNMXMLfUIwqX6WcV9VtpTdM0blFwmr3lXo8APb11VsAVkZvKc3AOCfktw602BHQhIhy0hyxIGmp1baulZEXjhR1WRsTsUrgn6oY-_p0FCxMh-EyiZ8AOQTnVUXyOWsPqFpJXYJL6dX4ubYQrkIQMGM231WEfVFZMEqOZaBJ3DFxKD-fw2PSAxXulmcS-6rZDg.jpg" alt="Фото из публикации" loading="lazy"></div>
@@ -710,7 +661,6 @@
         <span class="post-date" datetime="2025-07-31T10:27:05+00:00">31 июл 2025</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/56" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(56)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     <div class="post-photo"><img src="https://cdn4.telesco.pe/file/gUuB8pKGGHo-TTlVqaXZeWSxpGoxqMu72V-HKt_bspz0GlfIIfRNYx4PDWCaFqHFFHVVuaCWah3Vyzw8gRSiYnrFZt87qGEUlT80cu2Z9xmsuYWTDYbcEhh7KgwGPbhqa4zfzif6i2spONVk7qCguun0OP91Zdk7HxIGR6MeEiynLTXOPvTliDGhzDfAiuxVBd9QFavfI0pbpKZpUH2-vUngJDTUtnlg1-c59-Vv-PxUxBhtdxNTxprxlZoU7LI1w1Emm7A-iuY6flZswuSUcH_nCcZxalW4QDUhmxewZAYUgDNHcnE3E24g0m1NZ7GUYxAGNNOVK7PlFc9oLcs2ew.jpg" alt="Фото из публикации" loading="lazy"></div>
@@ -725,7 +675,6 @@
         <span class="post-date" datetime="2025-07-30T17:54:50+00:00">30 июл 2025</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/49" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(49)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     <div class="post-photo"><img src="https://cdn4.telesco.pe/file/PabUw6Ek_spVi4A6htPs75alnOIvh9nbLWfk8qf0z-Vwxl0TAt37ZNgGAj-bUSQ-A4cFwDo6OZLHPUsv5SymRbaUTSMOzdL0LtZUTxKE1YJbwReNSC30K7uj42cEsGOycylN0b5ZdnaTZAnNBV0GdjBvXzDAgIJLzu0TJc4kZhBM7JyQxD9JbvMjBRizwWZ81_GMA3XImt2abFYi8P2Y82m6PoOIm-zimExF1bQIcW29xmPFTISvFgFH7ANJfuvhO-MaCHgL0DzaCb0rTQfycE4sXxEGDR__MofUjBURAWdN-CdTnE4IkHl4XWL01Zlv9WVd0HM5BpPxv2BXj-_teA.jpg" alt="Фото из публикации" loading="lazy"></div>
@@ -740,7 +689,6 @@
         <span class="post-date" datetime="2025-07-25T14:45:30+00:00">25 июл 2025</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/48" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(48)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     <div class="post-photo"><img src="https://cdn4.telesco.pe/file/Dqd_gAOrgsuswuGay9pmarvQJBsse2eqTeW3pUYHIIs17SZ-bpviN182kt2Oz4LlgEUTpCoLDg0QlzcX37vhYC0ZNW8GuGym7MXRj6NQriwYRBIFixrYlrvlZ8mKB0W6uu1KdHlyIFVD3ev1JHlNvVVfovd2rNJ9GpCV1W6nik55aLKGYApb-y3vBfRnS0AHGMa1jDgEUV3i2SQu0kCUOBmxzaMWPvBsLSYVCLp-ccWz07il0JOYGcW5HUTBk86Z9xOJnTeBvV9KOh5gO0TzR_pJGNxjgIcL-YVM4Lj5AiQtyn_x0DhpnVegIMaE9Mg2xOAn_OVCPqt4BL2Jb8KmZQ.jpg" alt="Фото из публикации" loading="lazy"></div>
@@ -755,7 +703,6 @@
         <span class="post-date" datetime="2025-07-22T14:36:27+00:00">22 июл 2025</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/46" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(46)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     <div class="post-photo"><img src="https://cdn4.telesco.pe/file/jKFDNdi9PtUJY_Zn8hOhhfjCIqGDc8erkcuWePY7QSVb5_QW4eNTAQDu76wsxX1ctR3dfBTlh6JsEMb9dnKcRM_02aTvmAX6znsSvy77b2v2kloVh-Q6D5hTQEkPXh-9nSiMRMoh18wg3cO89qAEiL6Lbg_k56ooL-xokWx4s5cqMlUALWdyHk_UIIsnZ_vtONTCEOLIGbFCqyyX93Mrm1wpeu9faU5mEjQY2AYZSJbfqhp8n9iRXEwi8fAi3FkWh0FDMil0CbCGFhzHd67Jw_zXqTt1o5Y0ikgoUCB8gscgquaOONByFPuBkcwxNpxdDNnugMSMqkdNVgKft1uJHg.jpg" alt="Фото из публикации" loading="lazy"></div>
@@ -770,7 +717,6 @@
         <span class="post-date" datetime="2025-07-22T06:19:33+00:00">22 июл 2025</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/45" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(45)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     
@@ -785,7 +731,6 @@
         <span class="post-date" datetime="2025-07-21T08:25:42+00:00">21 июл 2025</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/44" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(44)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     <div class="post-photo"><img src="https://cdn4.telesco.pe/file/KErINODPBZN6LGixn7kDMJPXMe-d2QxkXQVRZmsmqmxNvSk1kowEqJXcml4Tsd_ArpP1XUprAeAGZWse3_iG5sf1Ork0ZtnwJXvcBvQNx8M1qUOpj_zeiySUzzJU6WGU6hAMZRbOfaLmd3aHufyfApyYOrnPe3_767htBmKs81wDFpE7PksztyzZ8GqNlyJxslhAzM18tfG9QJ-HiRgDv51M3rzDQlD8wi0QfqULmyJoPNDTjg4JteNS2WNpFSyXTrM3w5URYQ1wGyziAdeCphD18tygFV0Z0iikmmHnj7AFmRBWYhR-NqLBTkbv_S84uKNQ3Qj7b238AKjj9kVNbQ.jpg" alt="Фото из публикации" loading="lazy"></div>
@@ -798,7 +743,6 @@
         <span class="post-date" datetime="2025-07-20T18:09:20+00:00">20 июл 2025</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/43" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(43)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     <div class="post-photo"><img src="https://cdn4.telesco.pe/file/YvXont8lKyc7BZqYm3ieF6gzSNnzkfDGeHGyxUYGCEGBsDCMefqnADSu8b0i5ug_tMKwHOP5LgMBZAKMku-AgSO5Ep9c6e1lgF2dcmCJfcFclfvzsotvPpxFiHkdMcAFFYXbzzzMPv50TwNpvrsfoqzwqze6eElt3-yxhc2hNrT6_fOOfebMJWRcWsUgcVwl-5SHjF0Z6JqbzDi4qVubnX8ijHnGYyy4GquQM8f7YDY50h8Xd8m6SsldeMe5pe_wkN6KDZtDDdRS2ajFnwVvtp1CTzuqsXtPGJSbMnue-G8ujDta6YLZZsWDorBC2J608VTiySZ-w3Srh0Um9s6vBw.jpg" alt="Фото из публикации" loading="lazy"></div>
@@ -813,7 +757,6 @@
         <span class="post-date" datetime="2025-07-19T06:02:38+00:00">19 июл 2025</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/38" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(38)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     <div class="post-photo"><img src="https://cdn4.telesco.pe/file/M0s0CkXJAwbNPjvKsPFrKQQNVV_AZTQ990LzO1ONZ50xDX2ugtH5Hp-a7luVd_GVJX4THr12tKh3ZJFCB4UgRrHKOFA9bxJtFmbzVpWY1DVzB6bS-9mdfNxLeAAksJK9LIHu7W0-u7NUsP0sKRIcILv0eVBIXenx_si85tv21_JLRinylbSDApZy4nT9tlX5HwgMQkHW1yQd-QQpti99IcFNANOLTpfEjnL3Dv7Xb17F6IqLPlTGlf899drO9yRaXxwHuxliVg6r7BX81AWwLTZuSJ64ECCjMmD0HoJh-UX5f2LpkWbHG5Q1RfYaMbtUcAW3EY66VJlRBECK3oqKcQ.jpg" alt="Фото из публикации" loading="lazy"></div>
@@ -828,7 +771,6 @@
         <span class="post-date" datetime="2025-07-17T09:30:26+00:00">17 июл 2025</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/37" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(37)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     
@@ -841,7 +783,6 @@
         <span class="post-date" datetime="2025-07-17T08:49:31+00:00">17 июл 2025</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/36" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(36)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     <div class="post-photo"><img src="https://cdn4.telesco.pe/file/AhUGT4MHX-UiPHrd_756u3vAJ1N_To_FE05ZKXDvCDedSE6We9twZQTzWy--wQ1xr4OcFNYskvupwbE7u_khfVqi4yOS9lviSxD9uA3XZAmSdBAs6d4dzPvP8phWXt5ntkpxmnVE4QfRr0lzribWhqcP9GNboJLbupk90x-3dP6DSV5YKsi3VORsOEwNV67US5PsNZ8hAGvm17Zu67s9r15BCQ5Qj5AIux3Xnf0-DWvfSzF2ba_6m2eobKLhgE4qK3jG031LlkrkAv3VkorEYerAlHvjXDEedkflQ8ygJuSlvP_1kVegDYybX4kNy3PT01N2Ev2MnpQEPuJfQeiymw.jpg" alt="Фото из публикации" loading="lazy"></div>
@@ -856,7 +797,6 @@
         <span class="post-date" datetime="2025-07-17T05:19:32+00:00">17 июл 2025</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/33" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(33)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     <div class="post-photo"><img src="https://cdn4.telesco.pe/file/VM_Gg0TfmBfW1q2fZ0y5buqib5dW9XWG0mfSvNvok-kXyJqC5SC4zcyw-26GZ4HOds9msmwzFR4_Ynwyl4LQ9sjAtpDn_H8BBLOBH-mFOd4NRhLGD0-J85Q69a1jdVGYrWxuBL1KYnEfdpB4imt8kSV5CdjEdfFRAI_TJ88qxFaKVPIrNVmHDUY1xV-wisC0ABFIcZQoj9D1IEbXlEEQqMFVUmpocpOHjoF3ZlvIFK5IBLLDdB1dTq4iVYZY-i9nQ_g5RjhoSZC7GKaUlzJjBSmp-fF3h-LGWTy8OA_LCbmIXdlQiLWqRCkL4YTx41hK13ibspLMw0sRCdF1QzP2LQ.jpg" alt="Фото из публикации" loading="lazy"></div>
@@ -871,7 +811,6 @@
         <span class="post-date" datetime="2025-07-15T08:12:27+00:00">15 июл 2025</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/31" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(31)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     <div class="post-photo"><img src="https://cdn4.telesco.pe/file/ov4cdEitf0AP5YGVhKlxjO4GdvFgzJq_pOWRFNjbrMi88qWQLtecKPS2d9MUKRLoHcFy39oDcIE2G6c8NW8CoV8T3ZbdCoxpzMRCS88BGK24zchdYYc4LugDP0oEgy4lUqTge8d8DjHu-APqIzoZC40_eRAMhIHJUquCyhw9FPP_zHcv0p7wiHAy4CMYS8cE7q3tEVbVxAbZfb5mR3NlMZPP5pDBSJEoCY-VXLTo2yo9EFBJw1dWO61wNLTzmbiLcPvC3M3pbzCiueLtA6F3-nA_l9hMKXbDUAv0KUclgT9qDO-VEnc9jvbVHx0TdkvWky7IeL23HCAf5j4j3HGjeQ.jpg" alt="Фото из публикации" loading="lazy"></div>
@@ -886,7 +825,6 @@
         <span class="post-date" datetime="2025-07-14T08:36:54+00:00">14 июл 2025</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/29" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(29)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     <div class="post-photo"><img src="https://cdn4.telesco.pe/file/J7neq3PDGtlTjHsqbYcGWaqjOmi5FYo_YglUzRU9GrbV3p4c7Hh6bT4Tbk3dEplfcy4uJ4qE74YcDlrBHSElMx9s5T4hladKNdSXHszJ1n6A24tOORQcYQdCnSeK5CMGUXQpCB7gucWRd_fbrCAZx-eLYCWmUZMbohXFhQ9ax4xZzG_g8TM_BUZ8ApofIuhk-bKFEglvYkZfHC3fmkSRMrWiIjbhkzxYcC6rvqt26bjPsMeCPwdFfghEw-VX2V6ktmEGDvHmPC1LFIYjfaH-nwZnYQsY8jVfgN_b0CbSb2vMAqgfEqFiNcx8RjKKM7xgaD-vqyfCfUGbLQhN_W77RQ.jpg" alt="Фото из публикации" loading="lazy"></div>
@@ -901,7 +839,6 @@
         <span class="post-date" datetime="2025-07-12T08:25:44+00:00">12 июл 2025</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/26" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(26)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     <div class="post-photo"><img src="https://cdn4.telesco.pe/file/NBEWDv6k3CHcNU2NoxidJMmbpGA2JePgj4Eik-3e91Vrt0TX6lmZQ_5UWjl40FMdq4KI5RdG00uKy-xIh9XleRdy5G8GDt7tMpYgOfpYTRDx_-8J4VIX3UZv4gkNfaDjN7xUbKFpAodvj1Edmm-TwjRlf-yqGlGWeNU2CeaMOSlxmuINtjHDVxlnjeZASpqwiSxrG1EzxV9bcwFJLkJi-a1jMeoyEej2_Eo6mZUkhu_9jXfh7hn51Rg3atFq6wi4jCCaEdvGwrMCcTFSU3V86rM511T9qs8HYwXfZTdronWL8INvvhETeC9q2ItXlPhuUhuakQlvwSKonS5tNnSKqA.jpg" alt="Фото из публикации" loading="lazy"></div>
@@ -914,7 +851,6 @@
         <span class="post-date" datetime="2025-07-12T08:20:28+00:00">12 июл 2025</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/22" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(22)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     
@@ -929,7 +865,6 @@
         <span class="post-date" datetime="2025-07-11T17:14:06+00:00">11 июл 2025</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/18" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(18)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     <div class="post-photo"><img src="https://cdn4.telesco.pe/file/Yjk7AJf9oK-argLaR7PFpbZztDRvPqCUQ0MhbLood_9cwYF9SwB3uqyWlcR85nT3gdNpQr1YKerQ3zuH7X7b83jHaQIuwajGtarHh08aW0V9hBIWT82PJK5tbUhf-gH1si2N4sOR4pKnA8DgRoFFuxJeVlASwCMQnj104HLutUR8Vrm6CxnqNafCYJqToljOEEJBA3cYBZBUaG1k8w62GmVi7oma1v9CyDgrSbZsa0zK1JG38-xddU3GfGoSjAMTZ5jpVepHHyqIYTK2rBl4fLNH9LMfbzCier3NCFMYI4tEq0_r6p2OJ4MHAF_kc4DOobb1zs7UPOW0Cwqt4m4Heg.jpg" alt="Фото из публикации" loading="lazy"></div>
@@ -944,7 +879,6 @@
         <span class="post-date" datetime="2025-07-11T14:11:07+00:00">11 июл 2025</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/16" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(16)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     
@@ -959,7 +893,6 @@
         <span class="post-date" datetime="2025-07-11T14:11:07+00:00">11 июл 2025</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/15" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(15)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     <div class="post-photo"><img src="https://cdn4.telesco.pe/file/a8em8L4UfFWV-u3QGyCNaKEcGofn4Qmzo3owbj5z3pnaZSsJsG8kzjjTRZc_7Rm4f3V12pGN_pIwNf3CT1JKFM9jCq-Y5GbaXK9SAng0IvE1MnOSLw0JzUecYRwGYb6Fp23RACtRV01qDFrmgE2SIbGgQ9YlWEL-2oIKSCbQdxk7lPKs31PfGG_sg-SVAZf_eh1m_m6Re3yNZJVW98AUZ2mToFpYESao6iAY2gbqWNg9fZivjLygwanJnBQ5BacglZO7uG7vedd8hk4eOR0drNvpYruEjOV8tRH8xkXO2hXvZWmcsovqicFkjvhHPJHPl3LisiVVWcF5IgCdfNHeKA.jpg" alt="Фото из публикации" loading="lazy"></div>
@@ -972,7 +905,6 @@
         <span class="post-date" datetime="2025-07-10T08:11:40+00:00">10 июл 2025</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/13" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(13)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     
@@ -987,7 +919,6 @@
         <span class="post-date" datetime="2025-07-10T08:11:35+00:00">10 июл 2025</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/7" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(7)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     <div class="post-photo"><img src="https://cdn4.telesco.pe/file/fsuBEn0HViTwmTAR85SNdIaz_RAvbhPIaj4OJi9OP-sEuJg1RyVteS50GnZG-8JAjLgaebc6BMrgkhH1lsVOdVo7WeG_HPbzOhcY9VXZBy0oi0g17J6eGpx7LfNK6wSHo8EnObWPSBkRzSBGTsmeT1vxkqnaPfJSLxuVSrbX360LyBSFzXmmCusQHygUPbOQf8WR7k05HHdw-x6XQywASmyHlD3w4ogJCB7gmg8BCC5TNi0fz1zcfm7hb_qwXA1jf4sv9ntVRRh7tH_1PbBjlAFodd53JldSAk6T6L2Wy63PvriK82BmOb_OqZJaaWWY2_D13ADux690w1MJPrYOQA.jpg" alt="Фото из публикации" loading="lazy"></div>
@@ -1000,7 +931,6 @@
         <span class="post-date" datetime="2025-07-09T11:14:11+00:00">9 июл 2025</span>
         <div class="post-meta-right">
             <a href="https://t.me/dvorzhiki/5" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(5)" title="Скрыть этот пост">Скрыть</button>
         </div>
     </div>
     <div class="post-photo"><img src="https://cdn4.telesco.pe/file/dClFnVWybHzQBMSXkllvo80rL64y4qO4Tc7I6MqcXzWVZrGm3x9p7tA7xRBN1DW6zSOp60Bq14eLP_eLqeXBJwZU4g_LUsjWPCrUmdAHxiEK0KCdmGbNbdO-tOyEol6X3tpGKm880vWgpYwPM59K_FgKxOQ28osG5q7xyEBlW_XO0LlALXT_ubYHxPGX5jWaQCumR3xE98JeTs3sptT0lDv5GaoMAXgx805RkGipP0minnNWFaF2T8iTiv9e7XgUzAd-siTJUC7Ex4cLMJ06vuWc1ccT6xEtEZl_A-W4m-g0Z8ADg4f8ohjr0idNi-5cDpxpJkVpaXMzMhc8xtvsEA.jpg" alt="Фото из публикации" loading="lazy"></div>
@@ -1010,45 +940,6 @@
         <button class="read-more-btn" onclick="toggleReadMore(5)" id="readMoreBtn-5">Читать дальше &darr;</button>
     </div>
 </article>
-<article class="post-card" data-post-id="3" data-text="Channel name was changed to «Dvorzhik»">
-    <div class="post-meta">
-        <span class="post-date" datetime="2025-07-06T18:47:09+00:00">6 июл 2025</span>
-        <div class="post-meta-right">
-            <a href="https://t.me/dvorzhiki/3" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(3)" title="Скрыть этот пост">Скрыть</button>
-        </div>
-    </div>
-    
-    <div class="post-content">
-        <p>Channel name was changed to «<span class="tgme_widget_service_strong_text" dir="auto">Dvorzhik</span>»</p>
-    </div>
-</article>
-<article class="post-card" data-post-id="2" data-text="Channel photo updated">
-    <div class="post-meta">
-        <span class="post-date" datetime="2025-07-06T18:05:34+00:00">6 июл 2025</span>
-        <div class="post-meta-right">
-            <a href="https://t.me/dvorzhiki/2" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(2)" title="Скрыть этот пост">Скрыть</button>
-        </div>
-    </div>
-    
-    <div class="post-content">
-        <p>Channel photo updated</p>
-    </div>
-</article>
-<article class="post-card" data-post-id="1" data-text="Channel created">
-    <div class="post-meta">
-        <span class="post-date" datetime="2025-07-06T18:05:33+00:00">6 июл 2025</span>
-        <div class="post-meta-right">
-            <a href="https://t.me/dvorzhiki/1" target="_blank" class="post-link">Оригинал в Telegram &nearr;</a>
-            <button class="hide-btn" onclick="hidePost(1)" title="Скрыть этот пост">Скрыть</button>
-        </div>
-    </div>
-    
-    <div class="post-content">
-        <p>Channel created</p>
-    </div>
-</article>
         </div>
         <div class="no-results" id="noResults">Ничего не найдено</div>
     </main>
@@ -1056,65 +947,6 @@
         <p>&copy; 2026 Александр Дворжицкий. Опубликовано на GitHub Pages.</p>
     </footer>
     <script>
-        // Ключ в localStorage для хранения скрытых постов
-        const HIDDEN_KEY = 'hiddenPosts';
-
-        // Загружаем список скрытых постов из localStorage
-        function getHiddenPosts() {
-            try {
-                const raw = localStorage.getItem(HIDDEN_KEY);
-                return raw ? JSON.parse(raw) : [];
-            } catch (e) {
-                return [];
-            }
-        }
-
-        // Сохраняем список скрытых постов
-        function saveHiddenPosts(hidden) {
-            try {
-                localStorage.setItem(HIDDEN_KEY, JSON.stringify(hidden));
-            } catch (e) {
-                // localStorage может быть недоступен — игнорируем
-            }
-        }
-
-        // Прячем карточку поста
-        function hidePost(id) {
-            const card = document.querySelector('.post-card[data-post-id="' + id + '"]');
-            if (card) {
-                card.style.display = 'none';
-            }
-            const hidden = getHiddenPosts();
-            if (hidden.indexOf(id) === -1) {
-                hidden.push(id);
-                saveHiddenPosts(hidden);
-            }
-            updateCount();
-        }
-
-        // Показываем все скрытые посты (очищаем список)
-        function showHiddenPosts() {
-            saveHiddenPosts([]);
-            const cards = document.querySelectorAll('.post-card');
-            for (let i = 0; i < cards.length; i++) {
-                cards[i].style.display = '';
-            }
-            filterPosts();
-            updateCount();
-        }
-
-        // При загрузке страницы автоматически прячем скрытые посты
-        function applyHidden() {
-            const hidden = getHiddenPosts();
-            if (hidden.length === 0) return;
-            for (let i = 0; i < hidden.length; i++) {
-                const card = document.querySelector('.post-card[data-post-id="' + hidden[i] + '"]');
-                if (card) {
-                    card.style.display = 'none';
-                }
-            }
-        }
-
         // Разворачивание/сворачивание полного текста поста
         function toggleReadMore(id) {
             const more = document.getElementById('postMore-' + id);
@@ -1147,18 +979,6 @@
             }
             document.getElementById('noResults').style.display = visible === 0 ? 'block' : 'none';
         }
-
-        // Обновляем счётчик видимых постов
-        function updateCount() {
-            const hidden = getHiddenPosts();
-            const total = document.querySelectorAll('.post-card').length;
-            const visible = total - hidden.length;
-            document.getElementById('postCount').textContent = visible + ' / ' + total;
-        }
-
-        // Инициализация при загрузке
-        applyHidden();
-        updateCount();
     </script>
 </body>
 </html>
